@@ -1,14 +1,16 @@
 // ==UserScript==
-// @name         You 163 Filter by Sex
-// @name:zh-CN   网易严选按性别分类
-// @namespace    you.163
-// @include 	 *://you.163.com/*
-// @version      1.0
-// @description  Add sex filter to you.163.com
+// @name               网易严选按性别分类
+// @name:en            You 163 Filter by Sex
+// @name:zh-CN         网易严选按性别分类
+// @namespace          https://github.com/BlindingDark/You163SexFilter
+// @include 	       *://you.163.com/*
+// @version            1.0.1
+// @description        给网易严选增加按性别分类的选项
+// @description:en     Add sex filter to you.163.com
 // @description:zh-CN  给网易严选增加按性别分类的选项
-// @author       BlindingDark
-// @grant        none
-// @license      Apache Licence 2.0
+// @author             BlindingDark
+// @grant              none
+// @license            Apache Licence 2.0
 // ==/UserScript==
 
 $(function() {
@@ -60,7 +62,7 @@ $(function() {
       console.log("waiting for m-content prepared");
       window.setTimeout(jQueryStart,1000);
     } else {
-      $(".m-sortbar").append(elementText);
+      $(".m-sortBar").append(elementText);
 
       all_filter = $("#sex_filter_all");
       male_filter = $("#sex_filter_male");
