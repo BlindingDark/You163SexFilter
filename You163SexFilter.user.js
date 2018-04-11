@@ -22,7 +22,7 @@ $(function() {
          <a href="javascript:;" class="categoryItem j-categoryItem" id="sex_filter_male">男</a>
          <a href="javascript:;" class="categoryItem j-categoryItem" id="sex_filter_female">女</a>
        </div>
-     </div>`
+     </div>`;
 
   const NIL = [];
   const MALE_KEYWORDS = ["男", "绅士"];
@@ -37,7 +37,7 @@ $(function() {
     $.each(goods, (goodIndex, good) => {
       $(good).show();
 
-      let name = $(good).find(".name span")[1].textContent;
+      let name = $(good).find(".name span")[3].textContent;
       $.each(sex, (keyWordIndex, keyWord) => {
         if (name.includes(keyWord)) {
           $(good).hide();
