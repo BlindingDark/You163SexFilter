@@ -4,7 +4,7 @@
 // @name:zh-CN         网易严选按性别分类
 // @namespace          https://github.com/BlindingDark/You163SexFilter
 // @include 	       *://you.163.com/*
-// @version            1.0.2
+// @version            1.0.3
 // @description        给网易严选增加按性别分类的选项
 // @description:en     Add sex filter to you.163.com
 // @description:zh-CN  给网易严选增加按性别分类的选项
@@ -37,7 +37,10 @@ $(function() {
     $.each(goods, (goodIndex, good) => {
       $(good).show();
 
-      let name = $(good).find(".name span")[3].textContent;
+      nameNode = $(good).find(".name span")[3]
+      let name = "";
+      if (nameNode) {name = nameNode.textContent;}
+
       $.each(sex, (keyWordIndex, keyWord) => {
         if (name.includes(keyWord)) {
           $(good).hide();
