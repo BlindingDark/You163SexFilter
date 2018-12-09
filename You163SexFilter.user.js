@@ -3,8 +3,8 @@
 // @name:en            You 163 Filter by Sex
 // @name:zh-CN         网易严选按性别分类
 // @namespace          https://github.com/BlindingDark/You163SexFilter
-// @include 	       *://you.163.com/*
-// @version            1.0.3
+// @include 	         *://you.163.com/*
+// @version            1.0.4
 // @description        给网易严选增加按性别分类的选项
 // @description:en     Add sex filter to you.163.com
 // @description:zh-CN  给网易严选增加按性别分类的选项
