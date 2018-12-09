@@ -37,9 +37,9 @@ $(function() {
     $.each(goods, (goodIndex, good) => {
       $(good).show();
 
-      nameNode = $(good).find(".name span")[3]
+      nameNode = $(good).find(".name [title]");
       let name = "";
-      if (nameNode) {name = nameNode.textContent;}
+      if (nameNode) {name = nameNode.text();}
 
       $.each(sex, (keyWordIndex, keyWord) => {
         if (name.includes(keyWord)) {
