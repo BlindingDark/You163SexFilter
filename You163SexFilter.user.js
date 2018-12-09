@@ -4,7 +4,7 @@
 // @name:zh-CN         网易严选按性别分类
 // @namespace          https://github.com/BlindingDark/You163SexFilter
 // @include 	         *://you.163.com/*
-// @version            1.0.4
+// @version            1.1
 // @description        给网易严选增加按性别分类的选项
 // @description:en     Add sex filter to you.163.com
 // @description:zh-CN  给网易严选增加按性别分类的选项
@@ -29,21 +29,40 @@ $(function() {
   const FEMALE_KEYWORDS = ["女", "名媛"];
   let nowStatus = NIL;
 
+  function findElement(elements) {
+    return elements.find(e => e.length > 0);
+  }
+
+  function findSortBar() {
+    return findElement([
+      $(".m-sortBar"),
+      $(".m-content")
+    ]);
+  }
+
+  function findGoods() {
+    return findElement([
+      $("#j-goodsAreaWrap").find(".item"),
+      $(".resultList").find(".item")
+    ]);
+  }
+
+  function findTitle($element) {
+    title = $element.find(".name [title]");
+    if (title) { return title.text();}
+  }
+
   function injectGoods(sex) {
     nowStatus = sex;
 
-    let goods = $("#j-goodsAreaWrap").find(".item");
+    $.each(findGoods(), (goodIndex, good) => {
+      $good = $(good);
+      $good.show();
 
-    $.each(goods, (goodIndex, good) => {
-      $(good).show();
-
-      nameNode = $(good).find(".name [title]");
-      let name = "";
-      if (nameNode) {name = nameNode.text();}
-
+      title = findTitle($good);
       $.each(sex, (keyWordIndex, keyWord) => {
-        if (name.includes(keyWord)) {
-          $(good).hide();
+        if (title.includes(keyWord)) {
+          $good.hide();
         }
       });
     });
@@ -58,14 +77,15 @@ $(function() {
     element.addClass("active");
   }
 
-  function jQueryStart(){
-    let mContent = $(".m-content");
+  function findTopElement() {
+    return $(".g-row");
+  }
 
-    if (mContent.length == 0) {
-      console.log("waiting for m-content prepared");
-      window.setTimeout(jQueryStart,1000);
-    } else {
-      $(".m-sortBar").append(elementText);
+  function initSortBar(){
+    let sortBar = findSortBar();
+
+    if (sortBar) {
+      sortBar.append(elementText);
 
       all_filter = $("#sex_filter_all");
       male_filter = $("#sex_filter_male");
@@ -75,20 +95,23 @@ $(function() {
       male_filter.click(() => {initLink(male_filter); injectGoods(FEMALE_KEYWORDS);});
       female_filter.click(() => {initLink(female_filter); injectGoods(MALE_KEYWORDS);});
 
-      mContent.bind('DOMNodeInserted', function(e) {
+      findTopElement().bind('DOMNodeInserted', function(e) {
         injectGoods(nowStatus);
       });
+    } else {
+      console.log("waiting for sort bar prepared");
+      window.setTimeout(initSortBar, 1000);
     }
   }
 
   function Tampermonkey_jQuery_wait(){
     if(typeof jQuery == 'undefined') {
       console.log("waiting for jQuery prepared");
-      window.setTimeout(Tampermonkey_jQuery_wait,1000);
+      window.setTimeout(Tampermonkey_jQuery_wait, 1000);
     }
     else {
       console.log("jQuery ready");
-      jQueryStart();
+      initSortBar();
     }
   }
 
